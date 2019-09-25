@@ -26,7 +26,11 @@ function CountLevel(props) {
 
 function Level(props) {
   const { level, label } = props;
-  console.log(`Render Level ${label}`);
+  if (label) {
+    console.log(`Render Level ${label}`);
+  } else {
+    console.log(`Render root`);
+  }
 
   const [countA, setCountA] = React.useState(0);
   const [countB, setCountB] = React.useState(0);
@@ -63,6 +67,7 @@ function App() {
   return (
     <div className="App">
       <h1>Reconciliation Demo</h1>
+      Root<br/>
       <Level level={0} label={""} />
     </div>
   );
