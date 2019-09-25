@@ -11,12 +11,17 @@ body > div {
   padding: 1em;
 }
 
+h1, h2, h3, h4, h5 {
+  margin: 0 0 0.5em 0;
+  font-size: 1rem;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 #stats-list {
-  border-bottom: 1px solid orange;
+  background: #dddddd;
 }
 

@@ -85,45 +85,47 @@ class ListContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        Color:{" "}
-        <ColorPicker
-          palette={COLORS}
-          onChange={this.setColor}
-          value={this.state.color}
-        />
-        <br />
-        <br />
-        <Counter
-          label="Counter"
-          count={this.state.count}
-          setCount={count => this.setState({ count })}
-        />
-        <Fibonacci number={this.state.count} color={this.state.color} />
-        <br />
-        List:
-        <button onClick={() => this.addItems(1)}>Add 1</button>
-        <button onClick={() => this.addItems(100)}>Add 100</button>
-        <button onClick={() => this.addItems(1000)}>Add 1000</button>
-        <button onClick={() => this.clearList()}>Clear</button>
-        <button onClick={() => this.countInc(1)}>Add *</button>
-        <span> Total items: {this.state.list.length} </span>
-        <br />
-        <input
-          type="checkbox"
-          checked={this.state.isListOpen}
-          onChange={this.toggleListOpen}
-        />{" "}
-        Show List
-        <br />
-        <input
-          type="checkbox"
-          checked={this.state.isVirtualized}
-          onChange={this.toggleVirtualized}
-        />{" "}
-        Use Magic
-        <br />
-        <br />
+      <div style={{ border: "1px solid silver", padding: "0.5em" }}>
+        <h2>ListContainer</h2>
+        <div style={{ border: "1px solid silver", padding: "0.5em", marginBottom: "0.5em" }}>
+          <h3>Controls</h3>
+          Color:{" "}
+          <ColorPicker
+            palette={COLORS}
+            onChange={this.setColor}
+            value={this.state.color}
+          />
+          <br />
+          <br />
+          <Counter
+            label="Counter"
+            count={this.state.count}
+            setCount={count => this.setState({ count })}
+          />
+          <Fibonacci number={this.state.count} color={this.state.color} />
+          <br />
+          List:
+          <button onClick={() => this.addItems(1)}>Add 1</button>
+          <button onClick={() => this.addItems(100)}>Add 100</button>
+          <button onClick={() => this.addItems(1000)}>Add 1000</button>
+          <button onClick={() => this.clearList()}>Clear</button>
+          <button onClick={() => this.countInc(1)}>Add *</button>
+          <span> Total items: {this.state.list.length} </span>
+          <br />
+          <input
+            type="checkbox"
+            checked={this.state.isListOpen}
+            onChange={this.toggleListOpen}
+          />{" "}
+          Show List
+          <br />
+          <input
+            type="checkbox"
+            checked={this.state.isVirtualized}
+            onChange={this.toggleVirtualized}
+          />{" "}
+          Use Magic
+        </div>
         {this.state.isListOpen && this.renderList()}
       </div>
     );

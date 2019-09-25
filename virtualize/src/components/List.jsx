@@ -7,22 +7,26 @@ function List(props) {
   console.log("Render List");
   const { data, starsCount, color } = props;
   return (
-    <div
-      style={{
-        height: "300px",
-        width: "300px",
-        overflow: "auto",
-        border: "2px solid orange"
-      }}
-    >
-      {data.map(item => (
-        <ListItem
-          key={item}
-          item={item}
-          starsCount={starsCount}
-          color={color}
-        />
-      ))}
+    <div style={{border: '1px solid silver', padding: '0.5em'}}>
+      <h3>List</h3>
+
+      <div
+        style={{
+          height: "200px",
+          width: "300px",
+          overflow: "auto",
+          border: "2px solid orange"
+        }}
+      >
+        {data.map(item => (
+          <ListItem
+            key={item}
+            item={item}
+            starsCount={starsCount}
+            color={color}
+          />
+        ))}
+      </div>
     </div>
   );
 }

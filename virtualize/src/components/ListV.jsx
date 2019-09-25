@@ -18,7 +18,7 @@ function ListV(props) {
   return (
     <List
       width={300}
-      height={300}
+      height={200}
       itemCount={data.length}
       itemSize={20}
       style={{ border: "2px solid blue" }}
