@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import NumberSlider from './NumberSlider';
+import ColorPicker from './ColorPicker';
 
 const COLORS = {
   Red: "#ff0000",
@@ -8,69 +10,6 @@ const COLORS = {
   Gray: "#aaaaaa",
   Black: "#000000"
 };
-
-// Recursive calculate Fibonacci numbers
-// Intentionally inefficient ( O(2^n) )
-function fibonacci(num) {
-  if (num <= 1) return 1;
-  return fibonacci(num - 1) + fibonacci(num - 2);
-}
-
-// Show Fibonacci numbers
-function Fibonacci(props) {
-  const { number, color } = props;
-  const fiboSum = fibonacci(number);
-
-  return (
-    <div style={{ color }}>
-      Fibonacci #{number}
-      <br />
-      <div style={{ fontSize: "3em" }}>{fiboSum}</div>
-    </div>
-  );
-}
-
-// Numeric range slider
-function Range(props) {
-  const { number, setNumber, step = 1 } = props;
-  return (
-    <>
-      <button onClick={() => setNumber(number - step)}>-</button>
-      <input
-        type="range"
-        value={number}
-        min={0}
-        max={50}
-        step={step}
-        onChange={ev => setNumber(ev.target.value)}
-      />
-      <button onClick={() => setNumber(number + step)}>+</button>
-    </>
-  );
-}
-
-// Single color picker
-function ColorPicker(props) {
-  const { onChange, value } = props;
-
-  const handleChange = ev => onChange(ev.target.value);
-  return (
-    <>
-      {Object.keys(COLORS).map(color => (
-        <label key={color}>
-          <input
-            type="radio"
-            name="color"
-            value={COLORS[color]}
-            checked={value === COLORS[color]}
-            onChange={handleChange}
-          />
-          {color}
-        </label>
-      ))}
-    </>
-  );
-}
 
 function updateStats(
   id, // the "id" prop of the Profiler tree that has just committed
@@ -84,21 +23,43 @@ function updateStats(
   console.log(`${id} update: ${actualDuration.toFixed(3)}ms`);
 }
 
+// Recursive calculate Fibonacci numbers
+// Intentionally inefficient ( O(2^n) )
+function fibonacci(num) {
+  if (num <= 1) return 1;
+  return fibonacci(num - 1) + fibonacci(num - 2);
+}
+
+// Show Fibonacci numbers
+function Fibonacci(props) {
+  const { number, color } = props;
+  const fiboNum = fibonacci(number);
+
+  return (
+    <div style={{ color }}>
+      Fibonacci #{number}
+      <br />
+      <div style={{ fontSize: "3em" }}>{fiboNum}</div>
+    </div>
+  );
+}
+
 function App() {
   const [color, setColor] = React.useState(COLORS.Gray);
-  const [number, setNumber] = React.useState(30);
+  const [number, setNumber] = React.useState(35);
 
   return (
     <div className="App">
       <div style={{ marginBottom: "2em" }}>
         <label>
-          Color: <ColorPicker onChange={setColor} value={color} />
+          Color: <ColorPicker palette={COLORS} onChange={setColor} value={color} />
         </label>
         <br />
         <label>
-          Number: <Range number={number} setNumber={setNumber} />
+          Number: <NumberSlider number={number} setNumber={setNumber} />
         </label>
       </div>
+      
       <React.Profiler id="Fibonacci" onRender={updateStats}>
         <Fibonacci number={number} color={color} />
       </React.Profiler>
