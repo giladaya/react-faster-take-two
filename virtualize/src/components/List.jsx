@@ -6,6 +6,7 @@ import ListItem from "./ListItem";
 function List(props) {
   console.log("Render List");
   const { data, starsCount, color } = props;
+
   return (
     <div style={{border: '1px solid silver', padding: '0.5em'}}>
       <h3>List</h3>
