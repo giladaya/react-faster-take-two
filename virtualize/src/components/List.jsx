@@ -13,7 +13,6 @@ function List(props) {
       <div
         style={{
           height: "200px",
-          width: "300px",
           overflow: "auto",
           border: "2px solid orange"
         }}

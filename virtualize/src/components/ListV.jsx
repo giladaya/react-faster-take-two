@@ -17,7 +17,6 @@ function ListV(props) {
   const Row = getRowRenderer(data, starsCount, color);
   return (
     <List
-      width={300}
       height={200}
       itemCount={data.length}
       itemSize={20}
