@@ -2,10 +2,10 @@ import React from "react";
 import { FixedSizeList as List } from "react-window";
 import ListItem from "./ListItem";
 
-function getRowRenderer(data, starsCount) {
+function getRowRenderer(data, starsCount, color) {
   return ({ index, style }) => (
     <ListItem
-      style={style}
+      style={{ ...style, color }}
       item={data[index]}
       starsCount={starsCount}
     />
@@ -13,8 +13,8 @@ function getRowRenderer(data, starsCount) {
 }
 
 function ListV(props) {
-  const { data, starsCount } = props;
-  const Row = getRowRenderer(data, starsCount);
+  const { data, starsCount, color } = props;
+  const Row = getRowRenderer(data, starsCount, color);
   return (
     <List
       width={300}

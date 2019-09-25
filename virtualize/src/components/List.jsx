@@ -4,7 +4,8 @@ import ListItem from "./ListItem";
 // const style = {height: '20px'};
 
 function List(props) {
-  const { data, starsCount } = props;
+  console.log("Render List");
+  const { data, starsCount, color } = props;
   return (
     <div
       style={{
@@ -15,7 +16,12 @@ function List(props) {
       }}
     >
       {data.map(item => (
-        <ListItem key={item} item={item} starsCount={starsCount} />
+        <ListItem
+          key={item}
+          item={item}
+          starsCount={starsCount}
+          color={color}
+        />
       ))}
     </div>
   );

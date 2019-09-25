@@ -1,8 +1,19 @@
-import React from 'react';
-import List from './List';
-import ListV from './ListV';
+import React from "react";
+import Counter from "./Counter";
+import Fibonacci from "./Fibonacci";
+import ColorPicker from "./ColorPicker";
+import List from "./List";
+import ListV from "./ListV";
 
-const INITIAL_ITEMS = 1000;
+const INITIAL_ITEMS = 10;
+
+const COLORS = {
+  Red: "#ff0000",
+  Green: "#00cc00",
+  Blue: "#0000ff",
+  Gray: "#aaaaaa",
+  Black: "#000000"
+};
 
 class ListContainer extends React.Component {
   constructor(props) {
@@ -12,101 +23,110 @@ class ListContainer extends React.Component {
       starsCount: 1,
       isVirtualized: false,
       isListOpen: true,
+      color: COLORS["Blue"],
+      count: 35
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('ListContainer will receive props', nextProps);
-  }
+  setColor = color => {
+    this.setState({ color });
+  };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const should = (this.state !== nextState);
-    console.log('ListContainer should update', should);
-    return should;
-  }
-
-  componentWillUpdate() {
-    console.log('ListContainer will update');
-    this.props.onStart && this.props.onStart();
-  }
-
-  componentDidUpdate() {
-    console.log('ListContainer did update');
-    this.props.onStop && this.props.onStop()
-  }
-
-  addItems = (count) => {
-    console.log('-- Add items clicked --');
+  addItems = count => {
+    console.log("-- Add items clicked --");
     const min = this.state.list.length;
     const newItems = [...Array(count).keys()].map(x => x + min);
-    this.setState((state, props) => (
-      {
-        list: this.state.list.concat(newItems),
-      }
-    ));
-  }
+    this.setState((state, props) => ({
+      list: this.state.list.concat(newItems)
+    }));
+  };
+
   clearList = () => {
-    this.setState((state, props) => (
-      {
-        list: [],
-        starsCount: 1,
-      }
-    ));
-  }
-  countInc = (delta) => {
-    console.log('-- Counter inc clicked --');
-    this.setState((state, props) => (
-      {
-        starsCount: this.state.starsCount + delta,
-      }
-    ));
-  }
+    this.setState((state, props) => ({
+      list: [],
+      starsCount: 1
+    }));
+  };
+
+  countInc = delta => {
+    console.log("-- Counter inc clicked --");
+    this.setState((state, props) => ({
+      starsCount: this.state.starsCount + delta
+    }));
+  };
 
   toggleVirtualized = () => {
     this.setState((state, props) => ({
-      isVirtualized: !this.state.isVirtualized,
+      isVirtualized: !this.state.isVirtualized
     }));
-  }
+  };
 
   toggleListOpen = () => {
     this.setState((state, props) => ({
-      isListOpen: !this.state.isListOpen,
+      isListOpen: !this.state.isListOpen
     }));
-  }
+  };
 
   renderList = () => {
-    return (
-      this.state.isVirtualized ?
-      <ListV data={this.state.list} starsCount={this.state.starsCount}/> :
-      <List data={this.state.list} starsCount={this.state.starsCount}/>
-    )
-  }
+    return this.state.isVirtualized ? (
+      <ListV
+        data={this.state.list}
+        starsCount={this.state.starsCount}
+        color={this.state.color}
+      />
+    ) : (
+      <List
+        data={this.state.list}
+        starsCount={this.state.starsCount}
+        color={this.state.color}
+      />
+    );
+  };
 
   render() {
     return (
       <div>
+        Color:{" "}
+        <ColorPicker
+          palette={COLORS}
+          onChange={this.setColor}
+          value={this.state.color}
+        />
+        <br />
+        <br />
+        <Counter
+          label="Counter"
+          count={this.state.count}
+          setCount={count => this.setState({ count })}
+        />
+        <Fibonacci number={this.state.count} color={this.state.color} />
+        <br />
+        List:
         <button onClick={() => this.addItems(1)}>Add 1</button>
         <button onClick={() => this.addItems(100)}>Add 100</button>
         <button onClick={() => this.addItems(1000)}>Add 1000</button>
         <button onClick={() => this.clearList()}>Clear</button>
         <button onClick={() => this.countInc(1)}>Add *</button>
-        <span> Total items: {this.state.list.length} </span><br/>
+        <span> Total items: {this.state.list.length} </span>
+        <br />
         <input
           type="checkbox"
           checked={this.state.isListOpen}
           onChange={this.toggleListOpen}
-        /> Show List
-        <br/>
+        />{" "}
+        Show List
+        <br />
         <input
           type="checkbox"
           checked={this.state.isVirtualized}
           onChange={this.toggleVirtualized}
-        /> Use Magic
-        {
-          this.state.isListOpen && this.renderList()
-        }
+        />{" "}
+        Use Magic
+        <br />
+        <br />
+        {this.state.isListOpen && this.renderList()}
       </div>
-    )
+    );
   }
 }
 
