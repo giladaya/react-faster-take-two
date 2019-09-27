@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { Profiler, Dashboard } from "./Profiler";
 
 const MAX_LEVELS = 2;
 
@@ -65,10 +66,16 @@ const MCountLevel = CountLevel;
 
 function App() {
   return (
-    <div className="App">
-      <h1>Reconciliation Demo</h1>
-      Root<br/>
-      <Level level={0} label={""} />
+    <div>
+      <Dashboard />
+      <div className="App">
+        <h1>Reconciliation Demo</h1>
+        Root
+        <br />
+        <Profiler id={"Root"}>
+          <Level level={0} label={""} />
+        </Profiler>
+      </div>
     </div>
   );
 }
